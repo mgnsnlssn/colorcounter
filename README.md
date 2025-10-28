@@ -69,3 +69,7 @@ python color_count_pro.py
 ### Namnge filen v42_y7.xlsx eller nåt liknande och 
 ## Lägg en Excel-fil i inbox/, så skapas resultat i outbox/ automatiskt.
 
+<a href="https://youtu.be/pm5MzJVbIVU"target="_blank">
+  <img src="https://img.youtube.com/vi/pm5MzJVbIVU/0.jpg" width="600">
+</a>
+
