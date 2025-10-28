@@ -1,75 +1,67 @@
 # 🧮 Color Count Pro v3.0
-Ett Python-baserat verktyg som automatiskt analyserar färgmarkerade celler i Excel-filer och skapar tydliga rapporter, statistik och trenddiagram.
 
----
+A Python tool that automatically analyzes color-coded cells in Excel files and generates clear reports, stats, and trend charts.
 
-## 🚀 Funktioner
-- Bevakar mappen **`inbox/`** efter nya `.xlsx`-filer  
-- Räknar antal **gröna**, **gula** och **röda** celler per rad  
-- Skapar **statistikblad** per fil (text + färgfördelning)  
-- Sammanställer allt i **`Sammanställning.xlsx`**  
-- Ritar **trenddiagram** med färgkodade linjer (grön/gul/röd)  
-- Kör helt automatiskt – bara lägg filen i *inbox*  
+⸻
 
----
+## 🚀 Features
+•	Watches the inbox/ folder for new .xlsx files
+•	Counts green, yellow, and red cells per row
+•	Creates a per-file stats sheet (text + color distribution)
+•	Aggregates everything into Sammanställning.xlsx (summary workbook)
+•	Draws trend charts with color-coded lines (green/yellow/red)
+•	Fully automatic — just drop a file into inbox/
+
+⸻
 
 ## ⚙️ Installation
 
-### 1️⃣ Krav
-- **Python 3.10+**
-- **openpyxl**
+### 1) Requirements
+	•	Python 3.10+
+	•	openpyxl
 
-### 2️⃣ Klona projektet
+### 2) Clone the repo
+```bash
 git clone https://github.com/mgnsnlssn/colorcounter.git
 cd colorcounter
+```
 
-
-### 3️⃣ Skapa virtuell miljö (för att hålla projektet rent)
-
-Detta skapar en egen Python-miljö för projektet där endast nödvändiga paket installeras.  
-Kör följande kommando i projektmappen:
-
-macOS / Linux 👇
+### 3) Create a virtual environment
+MacOS/Linux
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
-Windows 👇
+
+Windows
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
-### 4️⃣ Installera beroenden
-Projektet använder **openpyxl** för att läsa och skriva Excel-filer.
-
-Installera alla beroenden med:
+### 4) Install dependencies
 ```bash
 pip install -r requirements.txt
+```
 
-## 🧑‍💻 Testa själv
-Kopiera och kör direkt i terminalen:
+## 🧑‍💻 Quick start
 ```bash
 git clone https://github.com/mgnsnlssn/colorcounter.git
 cd colorcounter
-python3 -m venv venv && source venv/bin/activate
+python3 -m venv venv && source venv/bin/activate     # macOS/Linux
+# or: python -m venv venv && venv\Scripts\activate   # Windows
 pip install -r requirements.txt
 python color_count_pro.py
 ```
-### 💡 Första gången du kör?
+### 📂 How it works
+ - Put one or more .xlsx files in inbox/.
+ - Run python color_count_pro.py.
+ - Results are written to outbox/ and to Sammanställning.xlsx (the aggregated summary workbook).
+ - Each processed file also gets its own stats sheet with counts for green/yellow/red per row and a trend chart.
 
-1. Radera eventuell gammal `venv`-mapp.
-2. Kör:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate      # macOS/Linux
-   python -m pip install --upgrade pip
-   python -m pip install -r requirements.txt
+The tool reads cell fill colors (not text) and tallies them per row so you can quantify status, progress, or attendance at a glance.
 
-### Gå till SchoolSoft, Närvaro - Elev - Elevnärvaro vecka, Copy/Paste in i ett Spreadsheet - > Exportera
-### Namnge filen v42_y7.xlsx eller nåt liknande och 
-## Lägg en Excel-fil i inbox/, så skapas resultat i outbox/ automatiskt.
-
-<a href="https://youtu.be/pm5MzJVbIVU"target="_blank">
-  <img src="https://img.youtube.com/vi/pm5MzJVbIVU/0.jpg" width="600">
-</a>
-
+### 📝 Typical workflow (SchoolSoft example)
+ - In SchoolSoft: go to Närvaro → Elev → Elevnärvaro vecka
+ - Copy/Paste to a spreadsheet and export to Excel
+ - Name the file e.g. v42_y7.xlsx
+ - Drop it into inbox/ → run the script → check outbox/ and Sammanställning.xlsx
