@@ -45,7 +45,7 @@ Projektet använder **openpyxl** för att läsa och skriva Excel-filer.
 Installera alla beroenden med:
 ```bash
 pip install -r requirements.txt
-```
+
 ## 🧑‍💻 Testa själv
 Kopiera och kör direkt i terminalen:
 ```bash
@@ -55,6 +55,16 @@ python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 python color_count_pro.py
 ```
+### 💡 Första gången du kör?
+
+1. Radera eventuell gammal `venv`-mapp.
+2. Kör:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate      # macOS/Linux
+   python -m pip install --upgrade pip
+   python -m pip install -r requirements.txt
+
 ### Gå till SchoolSoft, Närvaro - Elev - Elevnärvaro vecka, Copy/Paste in i ett Spreadsheet - > Exportera
 ### Namnge filen v42_y7.xlsx eller nåt liknande och 
 ## Lägg en Excel-fil i inbox/, så skapas resultat i outbox/ automatiskt.
