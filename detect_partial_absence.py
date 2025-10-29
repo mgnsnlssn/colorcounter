@@ -4,7 +4,8 @@ import os
 # --- Inställningar ---
 INBOX = "inbox"
 OUTBOX = "outbox"
-RED_CODES = ["FF0000", "FF6666", "FFC7CE"]  # olika varianter av "röd" (Excel använder flera)
+RED_CODES = ["FF0000", "FF6666", "FFC7CE"]   # olika röda nyanser
+YELLOW_CODES = ["FFFF00", "FFF200", "FFEB9C"]  # olika gula nyanser
 DAY_KEYWORDS = {
     "mån": "Monday",
     "tis": "Tuesday",
@@ -14,15 +15,14 @@ DAY_KEYWORDS = {
 }
 
 
-def is_red(cell):
+def get_rgb(cell):
     fill = cell.fill
     if fill and fill.start_color and fill.start_color.rgb:
-        rgb = fill.start_color.rgb[-6:].upper()
-        return rgb in RED_CODES
-    return False
+        return fill.start_color.rgb[-6:].upper()
+    return None
 
 
-def detect_partial_presence(filepath):
+def detect_yellow_to_red(filepath):
     wb = load_workbook(filepath)
     ws = wb.active
 
@@ -38,19 +38,20 @@ def detect_partial_presence(filepath):
 
     print(f"Detected day-column mapping:\n{day_columns}\n")
 
-    # --- Analys ---
     results = []
 
-    for row in ws.iter_rows(min_row=2):  # hoppa över rubrikraden
+    for row in ws.iter_rows(min_row=2):
         name = row[0].value
         if not name:
             continue
+
         for day, cols in day_columns.items():
             day_cells = [row[i - 1] for i in cols]
-            reds = [is_red(c) for c in day_cells]
-            # letar efter röd följd av icke-röd
-            for i in range(len(reds) - 1):
-                if reds[i] and not reds[i + 1]:
+            colors = [get_rgb(c) for c in day_cells]
+
+            # kolla om en gul följs av röd
+            for i in range(len(colors) - 1):
+                if (colors[i] in YELLOW_CODES) and (colors[i + 1] in RED_CODES):
                     results.append((name, day))
                     break
 
@@ -67,17 +68,17 @@ def main():
     for f in files:
         path = os.path.join(INBOX, f)
         print(f"Processing {f} ...")
-        suspects = detect_partial_presence(path)
+        suspects = detect_yellow_to_red(path)
 
         if suspects:
-            out_path = os.path.join(OUTBOX, f"partial_absence_{f}.txt")
+            out_path = os.path.join(OUTBOX, f"yellow_to_red_{f}.txt")
             with open(out_path, "w", encoding="utf-8") as out:
-                out.write("Students with red→present pattern:\n\n")
+                out.write("Students with yellow→red pattern (late → absent):\n\n")
                 for s in suspects:
                     out.write(f"{s[0]} – {s[1]}\n")
             print(f"→ Results saved to {out_path}")
         else:
-            print("→ No partial absences detected.")
+            print("→ No yellow→red transitions detected.")
 
 
 if __name__ == "__main__":
